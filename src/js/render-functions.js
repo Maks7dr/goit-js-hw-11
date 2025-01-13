@@ -48,3 +48,7 @@ export function renderGallery(images) {
 export function clearGallery() {
   document.querySelector('.gallery').innerHTML = '';
 }
+export function toggleLoader(show) {
+  const loader = document.querySelector('.loader');
+  loader.style.display = show ? 'inline-block' : 'none';
+}

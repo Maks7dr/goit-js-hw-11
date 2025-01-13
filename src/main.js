@@ -1,17 +1,11 @@
 import { fetchImages } from './js/pixabay-api.js';
-import { renderGallery, clearGallery } from './js/render-functions.js';
+import {
+  renderGallery,
+  clearGallery,
+  toggleLoader,
+} from './js/render-functions.js';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-
-// const loader = document.querySelector('.loader');
-
-// function toggleLoader(show) {
-//   if (show) {
-//     loader.style.display = 'inline-block';
-//   } else {
-//     loader.style.display = 'none';
-//   }
-// }
 
 const form = document.querySelector('#formImg');
 const searchInput = document.querySelector('#searchImg');
@@ -30,11 +24,11 @@ form.addEventListener('submit', async event => {
 
   form.reset();
   clearGallery();
-  // toggleLoader(true);
+  toggleLoader(true);
 
   try {
     const data = await fetchImages(query);
-    // toggleLoader(false);
+    toggleLoader(false);
     if (data.hits.length === 0) {
       iziToast.error({
         title: 'Error',
@@ -46,7 +40,7 @@ form.addEventListener('submit', async event => {
 
     renderGallery(data.hits);
   } catch (error) {
-    // toggleLoader(false);
+    toggleLoader(false);
     iziToast.error({
       title: 'Error',
       message: 'Something went wrong. Please try again later.',
